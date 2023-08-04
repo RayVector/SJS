@@ -4,7 +4,7 @@ import { appId } from '../SJS'
 
 export const prepareShadowNode = (rootComponent) => {
   // children
-  rootComponent.children = rootComponent.render(rootComponent.state)
+  rootComponent.children = rootComponent.render()
   rootComponent.children.forEach(child => {
     // component
     if (child.hasOwnProperty('render')) {
