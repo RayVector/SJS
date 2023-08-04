@@ -17,14 +17,18 @@ const App = () => {
     rerender(state, App)
   }
 
-  const update = () => {
+  const updateButtonText = () => {
     state.buttonMsg = 'qweasdzxc'
     rerender(state, App)
   }
 
-  const mainBlockStyles = {
-    color: 'green',
-    fontSize: '26px'
+  const undoButtonText = () => {
+    state.buttonMsg = 'qwe'
+    rerender(state, App)
+  }
+
+  const computedCountTodos = () => {
+    return state.count + state.todos.length
   }
 
   const onMounted = async () => {
@@ -36,7 +40,10 @@ const App = () => {
   const render = () => [
     defineNode({
       el: 'div',
-      styles: mainBlockStyles,
+      styles: {
+        color: 'green',
+        fontSize: '26px'
+      },
       content: [state.count]
     }),
     defineNode({
@@ -59,7 +66,12 @@ const App = () => {
         defineNode({
           el: 'button',
           content: ['update buttons text'],
-          events: [{ name: 'click', do: update }]
+          events: [{ name: 'click', do: updateButtonText }]
+        }),
+        defineNode({
+          el: 'button',
+          content: ['undo buttons text'],
+          events: [{ name: 'click', do: undoButtonText }]
         })
       ]
     }),
@@ -70,10 +82,22 @@ const App = () => {
       content: [...state.todos.map(todo => {
         return defineNode({
           el: 'li',
-          content: [todo.title]
+          content: [todo.title],
+          styles: {
+            marginBottom: '10px',
+            cursor: 'pointer'
+          },
+          events: [{ name: 'click', do: () => alert(todo.title) }]
         })
       })]
-    })
+    }),
+    defineNode({
+      el: 'div',
+      styles: {
+        fontSize: '26px'
+      },
+      content: [computedCountTodos()]
+    }),
   ]
 
   return {
