@@ -14,8 +14,10 @@ export const defineNode = (node) => {
 }
 
 // main
-export const createApp = (id, component) => {
+export const createApp = async (id, component) => {
   appId = id
   // shadow dom
-  prepareShadowDom(component())
+  const newRootComponent = component()
+  await newRootComponent.onMounted()
+  prepareShadowDom(newRootComponent)
 }

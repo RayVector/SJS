@@ -1,10 +1,12 @@
 import { defineNode, rerender } from '../../../src/index'
 import Button from './Button'
+import axios from "axios";
 
 const App = () => {
   const state = {
     count: 0,
-    buttonMsg: 'qwe'
+    buttonMsg: 'qwe',
+    todos: []
   }
 
   const rise = () => {
@@ -31,6 +33,12 @@ const App = () => {
     marginBottom: '5px',
     borderRadius: '2px',
     cursor: 'pointer'
+  }
+
+  const onMounted = async () => {
+    const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
+    state.todos = res.data.slice(0, 10)
+    rerender(state, App)
   }
 
   const render = () => [
@@ -64,12 +72,22 @@ const App = () => {
       ]
     }),
     Button(state.buttonMsg),
-    Button(state.buttonMsg)
+    Button(state.buttonMsg),
+    defineNode({
+      el: 'div',
+      content: [...state.todos.map(todo => {
+        return defineNode({
+          el: 'li',
+          content: [todo.title]
+        })
+      })]
+    })
   ]
 
   return {
     state,
-    render
+    render,
+    onMounted
   }
 }
 
