@@ -5,8 +5,9 @@
 
 Todo:
 
-- List rendering
-- Lifecycle hooks (mounted main)
+- List rendering (done)
+- Lifecycle hook mounted (done)
+- Lifecycle hooks
 - Router
 - Watchers
 - Computed

@@ -14,9 +14,7 @@ export const setStyles = (node, styles) => {
 export const rerender = (state, component) => {
   const newComponent = component()
 
-  for (const stateKey in state) {
-    newComponent.state[stateKey] = state[stateKey]
-  }
+  Object.assign(newComponent.state, state)
 
   prepareShadowDom(newComponent)
 }
