@@ -10,4 +10,4 @@ Todo:
 - Lifecycle hooks
 - Router
 - Watchers
-- Computed
+- Computed (done)
