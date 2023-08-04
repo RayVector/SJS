@@ -21,12 +21,13 @@ export const renderShadowDom = (shadowDom) => {
   const body = document.getElementsByTagName('body')[0]
   newRoot.id = appId
 
+  // todo (to recursion)
   shadowDom.children.forEach(child => {
     if (child.hasOwnProperty('el')) {
-      newRoot.appendChild(createNode(child))
+      if (child.if) newRoot.appendChild(createNode(child))
     } else {
       child.children.forEach(subChild => {
-        newRoot.appendChild(createNode(subChild))
+        if (subChild.if) newRoot.appendChild(createNode(subChild))
       })
     }
   })

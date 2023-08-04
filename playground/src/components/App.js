@@ -6,10 +6,18 @@ import Button from './Button'
 import { addBtnStyles } from '../styles/btn'
 
 const App = () => {
+  // state
   const state = {
     count: 0,
     buttonMsg: 'qwe',
-    todos: []
+    todos: [],
+    isShown: false
+  }
+
+  // methods
+  const fullHideText = () => {
+    state.isShown = !state.isShown
+    rerender(state, App)
   }
 
   const rise = () => {
@@ -27,17 +35,38 @@ const App = () => {
     rerender(state, App)
   }
 
+  // computed
   const computedCountTodos = () => {
     return state.count + state.todos.length
   }
 
+  // lifecycle hook
   const onMounted = async () => {
     const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
     state.todos = res.data.slice(0, 10)
     rerender(state, App)
   }
 
+  // view
   const render = () => [
+    defineNode({
+      el: 'div',
+      content: [
+        defineNode({
+          el: 'button',
+          content: ['Full Toggle'],
+          events: [{ name: 'click', do: fullHideText}]
+        }),
+        defineNode({
+          el: 'div',
+          if: state.isShown,
+          content: ['Show me']
+        })
+      ],
+      styles: {
+        marginBottom: '50px'
+      }
+    }),
     defineNode({
       el: 'div',
       styles: {

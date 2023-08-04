@@ -8,6 +8,8 @@ export const defineNode = (node) => {
     events: [],
     el: 'div',
     styles: {},
+    if: true,
+    isShown: true,
     content: [],
     ...node
   }
@@ -18,6 +20,7 @@ export const createApp = async (id, component) => {
   appId = id
   // shadow dom
   const newRootComponent = component()
+  // todo (to nested)
   await newRootComponent.onMounted()
   prepareShadowDom(newRootComponent)
 }

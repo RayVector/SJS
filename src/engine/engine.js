@@ -26,6 +26,7 @@ export const createNode = (nodeData) => {
   nodeData.events.forEach(event => setEvent(newNode, event))
   // set styles
   setStyles(newNode, nodeData.styles)
+  newNode.style.display = nodeData.isShown ? 'inherit' : 'none'
   // set content
   nodeData.content.forEach(contentNode => {
     if (typeof contentNode === 'object') {
