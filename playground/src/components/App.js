@@ -40,17 +40,15 @@ const App = () => {
       content: [state.count]
     }),
     defineNode({
-      el: 'button',
-      content: ['+'],
-      styles: addBtnStyles,
-      events: [{ name: 'click', do: rise }]
-    }),
-    defineNode({
       el: 'div',
+      styles: {
+        marginBottom: '5px',
+      },
       content: [
         defineNode({
           el: 'button',
           content: ['+'],
+          styles: addBtnStyles,
           events: [{ name: 'click', do: rise }]
         }),
       ]
@@ -60,7 +58,7 @@ const App = () => {
       content: [
         defineNode({
           el: 'button',
-          content: ['update'],
+          content: ['update buttons text'],
           events: [{ name: 'click', do: update }]
         })
       ]
