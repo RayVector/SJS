@@ -1,6 +1,9 @@
+import axios from 'axios'
+
 import { defineNode, rerender } from '../../../src/index'
+
 import Button from './Button'
-import axios from "axios";
+import { addBtnStyles } from '../styles/btn'
 
 const App = () => {
   const state = {
@@ -22,17 +25,6 @@ const App = () => {
   const mainBlockStyles = {
     color: 'green',
     fontSize: '26px'
-  }
-
-  const addBtnStyles = {
-    minWidth: '40px',
-    height: '30px',
-    backgroundColor: 'green',
-    padding: '5px 5px',
-    border: 'none',
-    marginBottom: '5px',
-    borderRadius: '2px',
-    cursor: 'pointer'
   }
 
   const onMounted = async () => {

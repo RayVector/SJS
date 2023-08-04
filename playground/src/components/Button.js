@@ -1,28 +1,21 @@
 import { defineNode } from '../../../src/index'
+import {addBtnStyles} from '../styles/btn'
 
 const Button = (msg = '') => {
-  const btnStyles = {
-    minWidth: '40px',
-    height: '30px',
-    backgroundColor: 'green',
-    padding: '5px 5px',
-    border: 'none',
-    marginBottom: '5px',
-    marginRight: '5px',
-    marginTop: '5px',
-    borderRadius: '2px',
-    cursor: 'pointer'
-  }
 
   const render = () => [
     defineNode({
       el: 'button',
       content: [msg],
-      styles: btnStyles,
+      styles: {
+        ...addBtnStyles,
+        marginRight: '5px',
+        marginTop: '5px'
+      },
       events: [
         {
           name: 'click',
-          do: () => alert(123)
+          do: () => alert(msg)
         }
       ]
     })
