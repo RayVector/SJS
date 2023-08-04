@@ -1,4 +1,4 @@
-import { defineNode, rerender } from '../../../index'
+import { defineNode, rerender } from '../../../src/index'
 import Button from './Button'
 
 const App = () => {

@@ -1,4 +1,4 @@
-import {defineNode} from '../../../index'
+import { defineNode } from '../../../src/index'
 
 const Button = (msg = '') => {
   const render = () => [
