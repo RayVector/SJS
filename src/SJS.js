@@ -7,6 +7,7 @@ export const defineNode = (node) => {
   return {
     events: [],
     el: 'div',
+    styles: {},
     content: [],
     ...node
   }

@@ -17,9 +17,15 @@ const App = () => {
     rerender(state, App)
   }
 
+  const mainBlockStyles = {
+    color: 'green',
+    fontSize: '26px'
+  }
+
   const render = (s) => [
     defineNode({
       el: 'div',
+      styles: mainBlockStyles,
       content: [s.count]
     }),
     defineNode({
