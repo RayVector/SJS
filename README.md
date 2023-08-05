@@ -7,7 +7,7 @@ Todo:
 
 - List rendering (done)
 - Emits from components
-- Conditional rendering
+- Conditional rendering (done)
 - Lifecycle hook mounted (done)
 - Lifecycle hooks
 - Router
