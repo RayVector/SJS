@@ -28,7 +28,7 @@ export const renderShadowDom = (shadowDom) => {
   shadowDom.content.forEach(contentItem => {
     // node
     if (typeof contentItem === 'object') {
-      newRoot.appendChild(createNode(contentItem))
+      if (contentItem.if) newRoot.appendChild(createNode(contentItem))
     // content
     } else {
       newRoot.innerHTML += contentItem
