@@ -50,22 +50,22 @@ const App = () => {
   // view
   const render = () => [
     defineNode({
+      el: 'h1',
+      content: ['Conditional render:']
+    }),
+    defineNode({
+      el: 'button',
+      content: ['Full Toggle'],
+      events: [{ name: 'click', do: fullHideText}]
+    }),
+    defineNode({
       el: 'div',
-      content: [
-        defineNode({
-          el: 'button',
-          content: ['Full Toggle'],
-          events: [{ name: 'click', do: fullHideText}]
-        }),
-        defineNode({
-          el: 'div',
-          if: state.isShown,
-          content: ['Show me']
-        })
-      ],
-      styles: {
-        marginBottom: '50px'
-      }
+      if: state.isShown,
+      content: ['I shown']
+    }),
+    defineNode({
+      el: 'h1',
+      content: ['Counter:']
     }),
     defineNode({
       el: 'div',
@@ -74,6 +74,10 @@ const App = () => {
         fontSize: '26px'
       },
       content: [state.count]
+    }),
+    defineNode({
+      el: 'h1',
+      content: ['Props:']
     }),
     defineNode({
       el: 'div',
@@ -107,25 +111,29 @@ const App = () => {
     Button(state.buttonMsg),
     Button(state.buttonMsg),
     defineNode({
+      el: 'h1',
+      content: ['Async list render:']
+    }),
+    defineNode({
       el: 'div',
-      content: [...state.todos.map(todo => {
+      content: state.todos.map(todo => {
         return defineNode({
           el: 'li',
-          content: [todo.title],
+          content: [`${todo.id}) ${todo.title}`],
           styles: {
             marginBottom: '10px',
             cursor: 'pointer'
           },
           events: [{ name: 'click', do: () => alert(todo.title) }]
         })
-      })]
+      })
     }),
     defineNode({
-      el: 'div',
+      el: 'h1',
       styles: {
         fontSize: '26px'
       },
-      content: [computedCountTodos()]
+      content: [`Computed: ${computedCountTodos()}`]
     }),
   ]
 
