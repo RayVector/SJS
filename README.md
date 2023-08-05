@@ -16,4 +16,4 @@ Todo:
 - Dynamic component
 - Watchers
 - Computed (done)
-- Slots
+- Slots (done)
