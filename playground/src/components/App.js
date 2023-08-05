@@ -12,12 +12,18 @@ const App = () => {
     count: 0,
     buttonMsg: 'qwe',
     todos: [],
-    isShown: false
+    isShown: false,
+    isShown2: false
   }
 
   // methods
   const fullHideText = () => {
     state.isShown = !state.isShown
+    rerender(state, App)
+  }
+
+  const partialHideText = () => {
+    state.isShown2 = !state.isShown2
     rerender(state, App)
   }
 
@@ -60,9 +66,19 @@ const App = () => {
       events: [{ name: 'click', do: fullHideText}]
     }),
     defineNode({
+      el: 'button',
+      render: () => ['Semi Toggle (Hide)'],
+      events: [{ name: 'click', do: partialHideText}]
+    }),
+    defineNode({
       el: 'div',
       if: state.isShown,
       render: () => ['I shown']
+    }),
+    defineNode({
+      el: 'div',
+      isShown: state.isShown2,
+      render: () => ['I shown 2']
     }),
     defineNode({
       el: 'h1',
