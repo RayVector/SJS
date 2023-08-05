@@ -11,6 +11,9 @@ Todo:
 - Lifecycle hook mounted (done)
 - Lifecycle hooks
 - Router
+- Store
+- Forms
+- Dynamic component
 - Watchers
 - Computed (done)
 - Slots
