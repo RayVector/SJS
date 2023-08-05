@@ -93,10 +93,6 @@ const App = () => {
       render: () => [state.count]
     }),
     defineNode({
-      el: 'h1',
-      render: () => ['Props:']
-    }),
-    defineNode({
       el: 'div',
       styles: {
         marginBottom: '5px',
@@ -109,6 +105,10 @@ const App = () => {
           events: [{ name: 'click', do: rise }]
         }),
       ]
+    }),
+    defineNode({
+      el: 'h1',
+      render: () => ['Props:']
     }),
     defineNode({
       el: 'div',
