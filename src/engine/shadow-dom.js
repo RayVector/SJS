@@ -24,6 +24,7 @@ export const renderShadowDom = (shadowDom) => {
   // todo (to recursion)
   shadowDom.children.forEach(child => {
     if (child.hasOwnProperty('el')) {
+      child.onMounted()
       if (child.if) newRoot.appendChild(createNode(child))
     } else {
       child.children.forEach(subChild => {

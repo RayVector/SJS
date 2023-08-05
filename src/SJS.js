@@ -11,6 +11,7 @@ export const defineNode = (node) => {
     if: true,
     isShown: true,
     content: [],
+    onMounted: () => {},
     ...node
   }
 }
