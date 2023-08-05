@@ -10,18 +10,19 @@ export const defineNode = (node) => {
     styles: {},
     if: true,
     isShown: true,
-    content: [],
+    render: () => [],
     onMounted: () => {},
     ...node
   }
 }
 
 // main
-export const createApp = async (id, component) => {
+export const createApp = (id, component) => {
   appId = id
   // shadow dom
-  const newRootComponent = component()
-  // todo (to nested)
-  await newRootComponent.onMounted()
+  const newRootComponent = defineNode({
+    ...component()
+  })
+  newRootComponent.onMounted()
   prepareShadowDom(newRootComponent)
 }

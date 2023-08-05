@@ -6,7 +6,7 @@ const Button = (msg = '') => {
   const render = () => [
     defineNode({
       el: 'button',
-      content: [msg],
+      render: () => [msg],
       styles: {
         ...addBtnStyles,
         marginRight: '5px',
