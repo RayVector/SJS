@@ -4,6 +4,7 @@ import { defineNode, rerender } from '../../../src/index'
 
 import Button from './Button'
 import { addBtnStyles } from '../styles/btn'
+import TodoItem from "./TodoItem";
 
 const App = () => {
   // state
@@ -112,28 +113,18 @@ const App = () => {
     Button(state.buttonMsg),
     defineNode({
       el: 'h1',
-      render: () => ['Async list render:']
+      render: () => ['Async list render + props + emits:']
     }),
     defineNode({
       el: 'div',
-      render: () => state.todos.map(todo => {
-        return defineNode({
-          el: 'li',
-          render: () => [`${todo.id}) ${todo.title}`],
-          styles: {
-            marginBottom: '10px',
-            cursor: 'pointer'
-          },
-          events: [{ name: 'click', do: () => alert(todo.title) }]
-        })
-      })
+      render: () => state.todos.map(todo => TodoItem(todo, (item) => alert(`From emit: ${item.title}`)))
     }),
     defineNode({
       el: 'h1',
       styles: {
         fontSize: '26px'
       },
-      render: () => [`Computed: ${computedCountTodos()}`]
+      render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
     }),
   ]
 

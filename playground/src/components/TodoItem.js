@@ -1,11 +1,11 @@
 import { defineNode } from '../../../src/index'
 
-const TodoItem = (todo = {}) => {
+const TodoItem = (item, click) => {
 
   const render = () => [
     defineNode({
       el: 'li',
-      render: () => [`${todo.id}) ${todo.title}`],
+      render: () => [`${item.id}) ${item.title}`],
       styles: {
         marginBottom: '10px',
         cursor: 'pointer'
@@ -13,7 +13,7 @@ const TodoItem = (todo = {}) => {
       events: [
         {
           name: 'click',
-          do: () => {}
+          do: () => click(item)
         }
       ]
     })
