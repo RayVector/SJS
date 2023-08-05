@@ -1,9 +1,10 @@
 import { defineNode } from '../../../src/index'
 import {addBtnStyles} from '../styles/btn'
 
-const Button = (msg = '') => {
+const Button = (msg, slot) => {
 
   const render = () => [
+    slot,
     defineNode({
       el: 'button',
       render: () => [msg],
@@ -22,7 +23,11 @@ const Button = (msg = '') => {
   ]
 
   return {
-    render
+    render,
+    slot: (e) => {
+      console.log(1, e)
+      return Button
+    }
   }
 }
 

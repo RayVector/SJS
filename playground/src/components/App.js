@@ -4,7 +4,7 @@ import { defineNode, rerender } from '../../../src/index'
 
 import Button from './Button'
 import { addBtnStyles } from '../styles/btn'
-import TodoItem from "./TodoItem";
+import TodoItem from './TodoItem'
 
 const App = () => {
   // state
@@ -125,8 +125,12 @@ const App = () => {
         })
       ]
     }),
-    Button(state.buttonMsg),
-    Button(state.buttonMsg),
+    Button(state.buttonMsg,
+      defineNode({
+        el: 'div',
+        render: () => ['slot']
+      })
+    ),
     defineNode({
       el: 'h1',
       render: () => ['Async list render + props + emits:']
