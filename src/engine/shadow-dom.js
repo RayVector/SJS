@@ -1,35 +1,41 @@
-import { createNode } from './engine'
-import { appId } from '../SJS'
-
+import {appId, defineNode} from '../SJS'
+import {createNode} from "./engine";
 
 export const prepareShadowNode = (rootComponent) => {
-  // children
-  rootComponent.children = rootComponent.render(rootComponent.state)
-  rootComponent.children.forEach(child => {
-    // component
+  const content = rootComponent.render()
+  content.forEach(child => {
+    // component type
     if (child.hasOwnProperty('render')) {
+      // component
+      if (!child.hasOwnProperty('el')) {
+        Object.assign(child, defineNode(child))
+      }
+      // node type
       prepareShadowNode(child)
     }
   })
+  rootComponent.content = content
   return rootComponent
 }
 
-// replace dom to shadowDom
 export const renderShadowDom = (shadowDom) => {
   const root = document.getElementById(appId)
   const newRoot = document.createElement('div')
   const body = document.getElementsByTagName('body')[0]
   newRoot.id = appId
 
-  shadowDom.children.forEach(child => {
-    if (child.hasOwnProperty('el')) {
-      newRoot.appendChild(createNode(child))
+  // content
+  shadowDom.content.forEach(contentItem => {
+    // node
+    if (typeof contentItem === 'object') {
+      if (contentItem.if) newRoot.appendChild(createNode(contentItem))
+    // content
     } else {
-      child.children.forEach(subChild => {
-        newRoot.appendChild(createNode(subChild))
-      })
+      newRoot.innerHTML += contentItem
     }
   })
+
+  // todo
   root.remove()
   body.appendChild(newRoot)
 }

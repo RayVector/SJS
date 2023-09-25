@@ -1,21 +1,33 @@
-import {defineNode} from '../../../index'
+import { defineNode } from '../../../src/index'
+import {addBtnStyles} from '../styles/btn'
 
-const Button = (msg = '') => {
+const Button = (msg, slot) => {
+
   const render = () => [
+    slot,
     defineNode({
       el: 'button',
-      content: [msg],
+      render: () => [msg],
+      styles: {
+        ...addBtnStyles,
+        marginRight: '5px',
+        marginTop: '5px'
+      },
       events: [
         {
           name: 'click',
-          do: () => alert(123)
+          do: () => alert(msg)
         }
       ]
     })
   ]
 
   return {
-    render
+    render,
+    slot: (e) => {
+      console.log(1, e)
+      return Button
+    }
   }
 }
 

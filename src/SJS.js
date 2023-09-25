@@ -7,7 +7,11 @@ export const defineNode = (node) => {
   return {
     events: [],
     el: 'div',
-    content: [],
+    styles: {},
+    if: true,
+    isShown: true,
+    render: () => [],
+    onMounted: () => {},
     ...node
   }
 }
@@ -16,5 +20,9 @@ export const defineNode = (node) => {
 export const createApp = (id, component) => {
   appId = id
   // shadow dom
-  prepareShadowDom(component())
+  const newRootComponent = defineNode({
+    ...component()
+  })
+  newRootComponent.onMounted()
+  prepareShadowDom(newRootComponent)
 }
