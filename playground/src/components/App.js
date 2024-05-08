@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import { defineNode, rerender } from '../../../src/index'
+import {defineNode, rerender} from '../../../src/index'
 
 import Button from './Button'
-import { addBtnStyles } from '../styles/btn'
+import {addBtnStyles} from '../styles/btn'
 import TodoItem from './TodoItem'
 
 const App = () => {
@@ -12,6 +12,7 @@ const App = () => {
     count: 0,
     buttonMsg: 'qwe',
     todos: [],
+    isAsyncLoading: false,
     isShown: false,
     isShown2: false
   }
@@ -48,10 +49,23 @@ const App = () => {
   }
 
   // lifecycle hook
-  const onMounted = async () => {
-    const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
-    state.todos = res.data.slice(0, 10)
-    rerender(state, App)
+  const onMounted = () => {
+    // getAsyncList()
+  }
+
+  const getAsyncList = async () => {
+    try {
+      state.isAsyncLoading = true
+      rerender(state, App)
+      setTimeout(async () => {
+        const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
+        state.todos = res.data.slice(0, 10)
+        state.isAsyncLoading = false
+        rerender(state, App)
+      }, 2000)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   // view
@@ -63,12 +77,12 @@ const App = () => {
     defineNode({
       el: 'button',
       render: () => ['Full Toggle'],
-      events: [{ name: 'click', do: fullHideText}]
+      events: [{name: 'click', do: fullHideText}]
     }),
     defineNode({
       el: 'button',
       render: () => ['Semi Toggle (Hide)'],
-      events: [{ name: 'click', do: partialHideText}]
+      events: [{name: 'click', do: partialHideText}]
     }),
     defineNode({
       el: 'div',
@@ -102,7 +116,7 @@ const App = () => {
           el: 'button',
           render: () => ['+'],
           styles: addBtnStyles,
-          events: [{ name: 'click', do: rise }]
+          events: [{name: 'click', do: rise}]
         }),
       ]
     }),
@@ -116,12 +130,12 @@ const App = () => {
         defineNode({
           el: 'button',
           render: () => ['update buttons text'],
-          events: [{ name: 'click', do: updateButtonText }]
+          events: [{name: 'click', do: updateButtonText}]
         }),
         defineNode({
           el: 'button',
           render: () => ['undo buttons text'],
-          events: [{ name: 'click', do: undoButtonText }]
+          events: [{name: 'click', do: undoButtonText}]
         })
       ]
     }),
@@ -136,8 +150,29 @@ const App = () => {
       render: () => ['Async list render + props + emits:']
     }),
     defineNode({
+      el: 'button',
+      render: () => ['Get Async List'],
+      events: [{name: 'click', do: getAsyncList}]
+    }),
+    defineNode({
+      el: 'div',
+      if: state.isAsyncLoading,
+      styles: {
+        marginTop: '20px'
+      },
+      render: () => ['...Loading...']
+    }),
+    defineNode({
       el: 'div',
       render: () => state.todos.map(todo => TodoItem(todo, (item) => alert(`From emit: ${item.title}`)))
+    }),
+    defineNode({
+      el: 'div',
+      if: !state.todos.length && !state.isAsyncLoading,
+      styles: {
+        marginTop: '20px'
+      },
+      render: () => ['Empty list']
     }),
     defineNode({
       el: 'h1',
