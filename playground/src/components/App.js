@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {createState, defineNode, rerender} from '../../../src/index'
+import {createState, node, rerender} from '../../../src/index'
 
 import Button from './Button'
 import {addBtnStyles} from '../styles/btn'
@@ -64,35 +64,35 @@ const App = () => {
 
   // view
   const render = () => [
-    defineNode({
+    node({
       el: 'h1',
       render: () => ['Conditional render:']
     }),
-    defineNode({
+    node({
       el: 'button',
       render: () => ['Full Toggle'],
       events: [{name: 'click', do: fullHideText}]
     }),
-    defineNode({
+    node({
       el: 'button',
       render: () => ['Semi Toggle (Hide)'],
       events: [{name: 'click', do: partialHideText}]
     }),
-    defineNode({
+    node({
       el: 'div',
       if: state.isShown,
       render: () => ['I shown']
     }),
-    defineNode({
+    node({
       el: 'div',
       isShown: state.isShown2,
       render: () => ['I shown 2']
     }),
-    defineNode({
+    node({
       el: 'h1',
       render: () => ['Counter:']
     }),
-    defineNode({
+    node({
       el: 'div',
       styles: {
         color: 'green',
@@ -100,13 +100,13 @@ const App = () => {
       },
       render: () => [state.count]
     }),
-    defineNode({
+    node({
       el: 'div',
       styles: {
         marginBottom: '5px',
       },
       render: () => [
-        defineNode({
+        node({
           el: 'button',
           render: () => ['+'],
           styles: addBtnStyles,
@@ -114,19 +114,19 @@ const App = () => {
         }),
       ]
     }),
-    defineNode({
+    node({
       el: 'h1',
       render: () => ['Props:']
     }),
-    defineNode({
+    node({
       el: 'div',
       render: () => [
-        defineNode({
+        node({
           el: 'button',
           render: () => ['update buttons text'],
           events: [{name: 'click', do: updateButtonText}]
         }),
-        defineNode({
+        node({
           el: 'button',
           render: () => ['undo buttons text'],
           events: [{name: 'click', do: undoButtonText}]
@@ -134,21 +134,21 @@ const App = () => {
       ]
     }),
     Button(state.buttonMsg,
-      defineNode({
+      node({
         el: 'div',
         render: () => ['slot']
       })
     ),
-    defineNode({
+    node({
       el: 'h1',
       render: () => ['Async list render + props + emits:']
     }),
-    defineNode({
+    node({
       el: 'button',
       render: () => ['Get Async List'],
       events: [{name: 'click', do: getAsyncList}]
     }),
-    defineNode({
+    node({
       el: 'div',
       if: state.isAsyncLoading,
       styles: {
@@ -156,11 +156,11 @@ const App = () => {
       },
       render: () => ['...Loading...']
     }),
-    defineNode({
+    node({
       el: 'div',
       render: () => state.todos.map(todo => TodoItem(todo, (item) => alert(`From emit: ${item.title}`)))
     }),
-    defineNode({
+    node({
       el: 'div',
       if: !state.todos.length && !state.isAsyncLoading,
       styles: {
@@ -168,7 +168,7 @@ const App = () => {
       },
       render: () => ['Empty list']
     }),
-    defineNode({
+    node({
       el: 'h1',
       styles: {
         fontSize: '26px'

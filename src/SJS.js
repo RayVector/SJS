@@ -3,7 +3,7 @@ import {prepareShadowDom} from "./engine/shadow-dom";
 export let appId
 
 // node settings
-export const defineNode = (node) => {
+export const node = (node) => {
   return {
     events: [],
     el: 'div',
@@ -20,7 +20,7 @@ export const defineNode = (node) => {
 export const createApp = (id, component) => {
   appId = id
   // shadow dom
-  const newRootComponent = defineNode({
+  const newRootComponent = node({
     ...component()
   })
   newRootComponent.onMounted()

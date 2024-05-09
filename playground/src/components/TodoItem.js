@@ -1,9 +1,9 @@
-import { defineNode } from '../../../src/index'
+import { node } from '../../../src/index'
 
 const TodoItem = (item, click) => {
 
   const render = () => [
-    defineNode({
+    node({
       el: 'li',
       render: () => [`${item.id}) ${item.title}`],
       styles: {

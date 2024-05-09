@@ -1,11 +1,11 @@
-import { defineNode } from '../../../src/index'
+import { node } from '../../../src/index'
 import {addBtnStyles} from '../styles/btn'
 
 const Button = (msg, slot) => {
 
   const render = () => [
     slot,
-    defineNode({
+    node({
       el: 'button',
       render: () => [msg],
       styles: {

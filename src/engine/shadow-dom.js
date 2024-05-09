@@ -1,4 +1,4 @@
-import {appId, defineNode} from '../SJS'
+import {appId, node} from '../SJS'
 import {createNode} from "./engine";
 
 export const prepareShadowNode = (rootComponent) => {
@@ -8,7 +8,7 @@ export const prepareShadowNode = (rootComponent) => {
     if (child.hasOwnProperty('render')) {
       // component
       if (!child.hasOwnProperty('el')) {
-        Object.assign(child, defineNode(child))
+        Object.assign(child, node(child))
       }
       // node type
       prepareShadowNode(child)

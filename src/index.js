@@ -13,6 +13,6 @@ export {
 } from './engine/shadow-dom'
 
 export {
-  defineNode,
+  node,
   createApp
 } from './SJS'
