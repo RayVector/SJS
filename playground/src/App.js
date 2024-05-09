@@ -25,7 +25,7 @@ const App = () => {
   // methods
   const fullHideText = () => {
     setState({isShown: !state.isShown}, App)
-    // rerender(state, App)
+    // possible way: rerender(state, App)
   }
 
   const partialHideText = () => {
@@ -76,7 +76,7 @@ const App = () => {
 
   // lifecycle hook
   const onMounted = () => {
-    // getAsyncList()
+    // possible way: getAsyncList()
   }
 
   // partials
@@ -101,7 +101,7 @@ const App = () => {
       }),
     ], ['container']),
     createContainer([
-      createBtn('Full Toggle', fullHideText, [], { marginRight: '5px'}),
+      createBtn('Full Toggle', fullHideText, [], {marginRight: '5px'}),
       createBtn('Semi Toggle (Hide)', partialHideText)
     ]),
     node({
@@ -109,6 +109,7 @@ const App = () => {
       if: state.isShown,
       render: () => ['I shown']
     }),
+    // possible way: state.isShown && createContainer(['I shown']),
     node({
       el: 'div',
       isShown: state.isShown2,
@@ -161,28 +162,19 @@ const App = () => {
     node({
       el: 'div',
       if: state.isAsyncLoading,
-      styles: {
-        marginTop: '20px'
-      },
+      styles: {marginTop: '20px'},
       render: () => ['...Loading...']
     }),
-    node({
-      el: 'div',
-      render: () => state.todos.map(todo => TodoItem(todo, (item) => alert(`From emit: ${item.title}`)))
-    }),
+    createContainer(state.todos.map(todo => TodoItem(todo, (item) => alert(`From emit: ${item.title}`)))),
     node({
       el: 'div',
       if: !state.todos.length && !state.isAsyncLoading,
-      styles: {
-        marginTop: '20px'
-      },
+      styles: {marginTop: '20px'},
       render: () => ['Empty list']
     }),
     node({
       el: 'h1',
-      styles: {
-        fontSize: '26px'
-      },
+      styles: {fontSize: '26px'},
       render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
     })
   ]
