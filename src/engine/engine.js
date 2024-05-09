@@ -1,4 +1,4 @@
-import { prepareShadowDom } from './shadow-dom'
+import {prepareShadowDom} from './shadow-dom'
 import {errorMessage} from "../utils/messages";
 import {node} from "../SJS";
 import {onClick, onHover, onUnHover} from "../enum/actions";
@@ -84,19 +84,34 @@ export const createNode = (nodeData) => {
 }
 
 export const createState = (state) => {
-  const setState = (objectValue, component) => {
+  // watcher
+  const watcherReflectMap = {}
 
+  // update
+  const setState = (objectValue, component) => {
     if (component === undefined || component === null) {
       errorMessage('setState should get a component for rerender!')
       return
     }
 
     for (const objectValueKey in objectValue) {
+      // watcher
+      if (watcherReflectMap[objectValueKey] !== undefined) {
+        watcherReflectMap[objectValueKey](objectValue[objectValueKey])
+      }
       state[objectValueKey] = objectValue[objectValueKey]
     }
     rerender(state, component)
   }
-  return {state, setState}
+
+  // save watcher
+  const watchField = (field, cb) => {
+    watcherReflectMap[field] = cb
+  }
+  const removeWatcher = (field) => {
+    delete watcherReflectMap[field]
+  }
+  return {state, setState, watchField, removeWatcher}
 }
 
 export const createContainer = (nodes, classes = [], styles = {}) => {

@@ -12,7 +12,7 @@ import {createBtn, createContainer} from "../../src/engine/engine";
 
 const App = () => {
   // state
-  const {state, setState} = createState({
+  const {state, setState, watchField, removeWatcher} = createState({
     count: 0,
     buttonMsg: 'qwe',
     todos: [],
@@ -21,6 +21,12 @@ const App = () => {
     isShown2: false,
     color: ''
   })
+
+  // watchers
+  watchField('isShown', (v) => console.log('isShown: ', v))
+  watchField('buttonMsg', (v) => console.log('buttonMsg: ', v))
+  watchField('isShown2', (v) => console.log('isShown2: ', v))
+  removeWatcher('isShown2')
 
   // methods
   const fullHideText = () => {
