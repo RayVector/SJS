@@ -1,4 +1,5 @@
 import { prepareShadowDom } from './shadow-dom'
+import {errorMessage} from "../utils/messages";
 
 export const setNodeContent = (newNode, contentNode) => newNode.innerText = contentNode
 
@@ -55,6 +56,12 @@ export const createNode = (nodeData) => {
 
 export const createState = (state) => {
   const setState = (objectValue, component) => {
+
+    if (component === undefined || component === null) {
+      errorMessage('setState should get a component for rerender!')
+      return
+    }
+
     for (const objectValueKey in objectValue) {
       state[objectValueKey] = objectValue[objectValueKey]
     }

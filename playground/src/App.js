@@ -5,7 +5,7 @@ import {createState, node, rerender} from '../../src'
 import Button from './components/Button'
 import {addBtnStyles} from './styles/btn'
 import TodoItem from './components/TodoItem'
-import {onClick} from "../../src/enum/actions";
+import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
 
@@ -17,7 +17,8 @@ const App = () => {
     todos: [],
     isAsyncLoading: false,
     isShown: false,
-    isShown2: false
+    isShown2: false,
+    color: ''
   })
 
   // methods
@@ -40,6 +41,18 @@ const App = () => {
 
   const undoButtonText = () => {
     setState({buttonMsg: 'qwe'}, App)
+  }
+
+  const onTitleHover = () => {
+    const getRandomColor = () => {
+      let letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    setState({color: getRandomColor()}, App)
   }
 
   // computed
@@ -71,7 +84,9 @@ const App = () => {
       el: 'h1',
       classes: ['qwe'],
       attrs: [{id: 'qwe'}],
-      render: () => ['Conditional render:']
+      styles: {color: state.color},
+      render: () => ['Conditional render:'],
+      events: [[onHover, onTitleHover]]
     }),
     node({
       el: 'button',
