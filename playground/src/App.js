@@ -8,7 +8,7 @@ import TodoItem from './components/TodoItem'
 import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
-import {createContainer} from "../../src/engine/engine";
+import {createBtn, createContainer} from "../../src/engine/engine";
 
 const App = () => {
   // state
@@ -101,16 +101,8 @@ const App = () => {
       }),
     ], ['container']),
     createContainer([
-      node({
-        el: 'button',
-        render: () => ['Full Toggle'],
-        events: [[onClick, fullHideText]]
-      }),
-      node({
-        el: 'button',
-        render: () => ['Semi Toggle (Hide)'],
-        events: [[onClick, partialHideText]]
-      }),
+      createBtn('Full Toggle', fullHideText, [], { marginRight: '5px'}),
+      createBtn('Semi Toggle (Hide)', partialHideText)
     ]),
     node({
       el: 'div',
@@ -140,12 +132,7 @@ const App = () => {
         marginBottom: '5px',
       },
       render: () => [
-        node({
-          el: 'button',
-          render: () => ['+'],
-          styles: addBtnStyles,
-          events: [[onClick, rise]]
-        }),
+        createBtn('+', rise, [], addBtnStyles)
       ]
     }),
     node({
@@ -155,16 +142,8 @@ const App = () => {
     node({
       el: 'div',
       render: () => [
-        node({
-          el: 'button',
-          render: () => ['update buttons text'],
-          events: [[onClick, updateButtonText]]
-        }),
-        node({
-          el: 'button',
-          render: () => ['undo buttons text'],
-          events: [[onClick, undoButtonText]]
-        })
+        createBtn('update buttons text', updateButtonText),
+        createBtn('undo buttons text', undoButtonText)
       ]
     }),
     Button(state.buttonMsg,
@@ -178,11 +157,7 @@ const App = () => {
       el: 'h1',
       render: () => ['Async list render + props + emits:']
     }),
-    node({
-      el: 'button',
-      render: () => ['Get Async List'],
-      events: [[onClick, getAsyncList]]
-    }),
+    createBtn('Get Async List', getAsyncList),
     node({
       el: 'div',
       if: state.isAsyncLoading,

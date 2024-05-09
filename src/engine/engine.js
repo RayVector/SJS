@@ -1,7 +1,7 @@
 import { prepareShadowDom } from './shadow-dom'
 import {errorMessage} from "../utils/messages";
 import {node} from "../SJS";
-import {onHover, onUnHover} from "../enum/actions";
+import {onClick, onHover, onUnHover} from "../enum/actions";
 
 export const setNodeContent = (newNode, contentNode) => newNode.innerText = contentNode
 
@@ -99,10 +99,21 @@ export const createState = (state) => {
   return {state, setState}
 }
 
-export const createContainer = (nodes, classes = []) => {
+export const createContainer = (nodes, classes = [], styles = {}) => {
   return node({
     el: 'div',
     classes,
+    styles,
     render: () => [...nodes]
+  })
+}
+
+export const createBtn = (content, clickEventHandler, classes = [], styles = {}) => {
+  return node({
+    el: 'button',
+    classes,
+    styles,
+    render: () => [content],
+    events: [[onClick, clickEventHandler]]
   })
 }
