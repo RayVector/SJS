@@ -11,6 +11,7 @@ export const node = (node) => {
     if: true,
     isShown: true,
     attrs: [],
+    classes: [],
     render: () => [],
     onMounted: () => {},
     ...node

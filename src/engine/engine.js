@@ -31,6 +31,10 @@ export const createNode = (nodeData) => {
   // set styles
   setStyles(newNode, nodeData.styles)
   newNode.style.display = nodeData.isShown ? '' : 'none'
+  // set classes
+  nodeData.classes.forEach((className) => {
+    newNode.classList.add(className)
+  })
   // set attributes
   nodeData.attrs.forEach((attr) => {
     const attrName = Object.entries(attr)[0][0]

@@ -1,11 +1,13 @@
 import axios from 'axios'
 
-import {createState, node, rerender} from '../../../src/index'
+import {createState, node, rerender} from '../../src'
 
-import Button from './Button'
-import {addBtnStyles} from '../styles/btn'
-import TodoItem from './TodoItem'
-import {onClick} from "../../../src/enum/actions";
+import Button from './components/Button'
+import {addBtnStyles} from './styles/btn'
+import TodoItem from './components/TodoItem'
+import {onClick} from "../../src/enum/actions";
+
+import './app.css'
 
 const App = () => {
   // state
@@ -67,6 +69,7 @@ const App = () => {
   const render = () => [
     node({
       el: 'h1',
+      classes: ['qwe'],
       attrs: [{id: 'qwe'}],
       render: () => ['Conditional render:']
     }),
