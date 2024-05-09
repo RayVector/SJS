@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {defineNode, rerender} from '../../../src/index'
+import {createState, defineNode, rerender} from '../../../src/index'
 
 import Button from './Button'
 import {addBtnStyles} from '../styles/btn'
@@ -8,39 +8,35 @@ import TodoItem from './TodoItem'
 
 const App = () => {
   // state
-  const state = {
+  const {state, setState} = createState({
     count: 0,
     buttonMsg: 'qwe',
     todos: [],
     isAsyncLoading: false,
     isShown: false,
     isShown2: false
-  }
+  })
 
   // methods
   const fullHideText = () => {
-    state.isShown = !state.isShown
-    rerender(state, App)
+    setState({ isShown: !state.isShown }, App)
+    // rerender(state, App)
   }
 
   const partialHideText = () => {
-    state.isShown2 = !state.isShown2
-    rerender(state, App)
+    setState({ isShown2: !state.isShown2 }, App)
   }
 
   const rise = () => {
-    state.count++
-    rerender(state, App)
+    setState({ count: state.count + 1 }, App)
   }
 
   const updateButtonText = () => {
-    state.buttonMsg = 'qweasdzxc'
-    rerender(state, App)
+    setState({ buttonMsg: 'qweasdzxc' }, App)
   }
 
   const undoButtonText = () => {
-    state.buttonMsg = 'qwe'
-    rerender(state, App)
+    setState({ buttonMsg: 'qwe' }, App)
   }
 
   // computed
@@ -55,13 +51,11 @@ const App = () => {
 
   const getAsyncList = async () => {
     try {
-      state.isAsyncLoading = true
-      rerender(state, App)
+      setState({ isAsyncLoading: true }, App)
       setTimeout(async () => {
         const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
         state.todos = res.data.slice(0, 10)
-        state.isAsyncLoading = false
-        rerender(state, App)
+        setState({ isAsyncLoading: false }, App)
       }, 2000)
     } catch (e) {
       console.error(e)

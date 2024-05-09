@@ -2,7 +2,8 @@ export {
   setNodeContent,
   setEvent,
   rerender,
-  createNode
+  createNode,
+  createState
 } from './engine/engine'
 
 export {

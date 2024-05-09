@@ -38,3 +38,13 @@ export const createNode = (nodeData) => {
   // output
   return newNode
 }
+
+export const createState = (state) => {
+  const setState = (objectValue, component) => {
+    for (const objectValueKey in objectValue) {
+      state[objectValueKey] = objectValue[objectValueKey]
+    }
+    rerender(state, component)
+  }
+  return {state, setState}
+}
