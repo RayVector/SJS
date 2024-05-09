@@ -66,6 +66,9 @@ const App = () => {
   const render = () => [
     node({
       el: 'h1',
+      attrs: [
+        { id: 'qwe' }
+      ],
       render: () => ['Conditional render:']
     }),
     node({

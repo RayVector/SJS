@@ -10,6 +10,7 @@ export const node = (node) => {
     styles: {},
     if: true,
     isShown: true,
+    attrs: [],
     render: () => [],
     onMounted: () => {},
     ...node

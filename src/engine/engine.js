@@ -12,10 +12,11 @@ export const setStyles = (node, styles) => {
 
 
 export const rerender = (state, component) => {
+  // init component
   const newComponent = component()
-
+  // populate new state
   Object.assign(newComponent.state, state)
-
+  // to mount
   prepareShadowDom(newComponent)
 }
 
@@ -27,6 +28,12 @@ export const createNode = (nodeData) => {
   // set styles
   setStyles(newNode, nodeData.styles)
   newNode.style.display = nodeData.isShown ? '' : 'none'
+  // set attributes
+  nodeData.attrs.forEach((attr) => {
+    const attrName = Object.entries(attr)[0][0]
+    const attrValue = Object.entries(attr)[0][1]
+    if (attrName && attrValue) newNode.setAttribute(attrName, attrValue)
+  })
   // set content
   nodeData.content.forEach(contentNode => {
     if (typeof contentNode === 'object') {
