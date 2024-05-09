@@ -10,7 +10,7 @@ export const setEvent = (node, event) => {
   node.addEventListener(name, (e) => {
     e.preventDefault()
     e.stopPropagation()
-    func()
+    func(e)
   })
 }
 
