@@ -84,9 +84,13 @@ const App = () => {
       el: 'h1',
       classes: ['qwe'],
       attrs: [{id: 'qwe'}],
-      styles: {color: state.color},
-      render: () => ['Conditional render:'],
+      styles: {color: state.color, display: 'inline'},
+      render: () => ['SJS Hello World!'],
       events: [[onHover, onTitleHover]]
+    }),
+    node({
+      el: 'h1',
+      render: () => ['Conditional render:'],
     }),
     node({
       el: 'button',
@@ -195,7 +199,7 @@ const App = () => {
         fontSize: '26px'
       },
       render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
-    }),
+    })
   ]
 
   return {

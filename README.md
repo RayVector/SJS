@@ -20,3 +20,8 @@ Todo:
 - Html attributes to node (done)
 - UI kit configuration
 - More events
+
+
+Bugs:
+
+- Display style prop is not working in inline css 
