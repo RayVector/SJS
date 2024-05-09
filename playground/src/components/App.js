@@ -67,9 +67,7 @@ const App = () => {
   const render = () => [
     node({
       el: 'h1',
-      attrs: [
-        {id: 'qwe'}
-      ],
+      attrs: [{id: 'qwe'}],
       render: () => ['Conditional render:']
     }),
     node({
@@ -140,7 +138,8 @@ const App = () => {
     Button(state.buttonMsg,
       node({
         el: 'div',
-        render: () => ['slot']
+        render: () => ['slot'],
+        events: [[onClick, () => alert('This is slot')]]
       })
     ),
     node({
