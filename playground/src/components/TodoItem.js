@@ -1,4 +1,5 @@
 import { node } from '../../../src/index'
+import {onClick} from "../../../src/enum/actions";
 
 const TodoItem = (item, click) => {
 
@@ -11,10 +12,7 @@ const TodoItem = (item, click) => {
         cursor: 'pointer'
       },
       events: [
-        {
-          name: 'click',
-          do: () => click(item)
-        }
+        [onClick, () => click(item)]
       ]
     })
   ]

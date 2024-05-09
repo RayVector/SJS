@@ -2,7 +2,10 @@ import { prepareShadowDom } from './shadow-dom'
 
 export const setNodeContent = (newNode, contentNode) => newNode.innerText = contentNode
 
-export const setEvent = (node, event) => node.addEventListener(event.name, event.do)
+export const setEvent = (node, event) => {
+  const [name, func] = event
+  node.addEventListener(name, func)
+}
 
 export const setStyles = (node, styles) => {
   for (const stylesKey in styles) {

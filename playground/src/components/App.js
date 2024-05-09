@@ -5,6 +5,7 @@ import {createState, node, rerender} from '../../../src/index'
 import Button from './Button'
 import {addBtnStyles} from '../styles/btn'
 import TodoItem from './TodoItem'
+import {onClick} from "../../../src/enum/actions";
 
 const App = () => {
   // state
@@ -19,24 +20,24 @@ const App = () => {
 
   // methods
   const fullHideText = () => {
-    setState({ isShown: !state.isShown }, App)
+    setState({isShown: !state.isShown}, App)
     // rerender(state, App)
   }
 
   const partialHideText = () => {
-    setState({ isShown2: !state.isShown2 }, App)
+    setState({isShown2: !state.isShown2}, App)
   }
 
   const rise = () => {
-    setState({ count: state.count + 1 }, App)
+    setState({count: state.count + 1}, App)
   }
 
   const updateButtonText = () => {
-    setState({ buttonMsg: 'qweasdzxc' }, App)
+    setState({buttonMsg: 'qweasdzxc'}, App)
   }
 
   const undoButtonText = () => {
-    setState({ buttonMsg: 'qwe' }, App)
+    setState({buttonMsg: 'qwe'}, App)
   }
 
   // computed
@@ -51,11 +52,11 @@ const App = () => {
 
   const getAsyncList = async () => {
     try {
-      setState({ isAsyncLoading: true }, App)
+      setState({isAsyncLoading: true}, App)
       setTimeout(async () => {
         const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
         state.todos = res.data.slice(0, 10)
-        setState({ isAsyncLoading: false }, App)
+        setState({isAsyncLoading: false}, App)
       }, 2000)
     } catch (e) {
       console.error(e)
@@ -67,19 +68,19 @@ const App = () => {
     node({
       el: 'h1',
       attrs: [
-        { id: 'qwe' }
+        {id: 'qwe'}
       ],
       render: () => ['Conditional render:']
     }),
     node({
       el: 'button',
       render: () => ['Full Toggle'],
-      events: [{name: 'click', do: fullHideText}]
+      events: [[onClick, fullHideText]]
     }),
     node({
       el: 'button',
       render: () => ['Semi Toggle (Hide)'],
-      events: [{name: 'click', do: partialHideText}]
+      events: [[onClick, partialHideText]]
     }),
     node({
       el: 'div',
@@ -113,7 +114,7 @@ const App = () => {
           el: 'button',
           render: () => ['+'],
           styles: addBtnStyles,
-          events: [{name: 'click', do: rise}]
+          events: [[onClick, rise]]
         }),
       ]
     }),
@@ -127,12 +128,12 @@ const App = () => {
         node({
           el: 'button',
           render: () => ['update buttons text'],
-          events: [{name: 'click', do: updateButtonText}]
+          events: [[onClick, updateButtonText]]
         }),
         node({
           el: 'button',
           render: () => ['undo buttons text'],
-          events: [{name: 'click', do: undoButtonText}]
+          events: [[onClick, undoButtonText]]
         })
       ]
     }),
@@ -149,7 +150,7 @@ const App = () => {
     node({
       el: 'button',
       render: () => ['Get Async List'],
-      events: [{name: 'click', do: getAsyncList}]
+      events: [[onClick, getAsyncList]]
     }),
     node({
       el: 'div',

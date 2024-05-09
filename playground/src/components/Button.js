@@ -1,5 +1,6 @@
 import { node } from '../../../src/index'
 import {addBtnStyles} from '../styles/btn'
+import {onClick} from "../../../src/enum/actions";
 
 const Button = (msg, slot) => {
 
@@ -14,20 +15,16 @@ const Button = (msg, slot) => {
         marginTop: '5px'
       },
       events: [
-        {
-          name: 'click',
-          do: () => alert(msg)
-        }
+        [
+          onClick,
+          () => alert(msg)
+        ]
       ]
     })
   ]
 
   return {
-    render,
-    slot: (e) => {
-      console.log(1, e)
-      return Button
-    }
+    render
   }
 }
 
