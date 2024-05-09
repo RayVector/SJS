@@ -5,7 +5,11 @@ export const setNodeContent = (newNode, contentNode) => newNode.innerText = cont
 
 export const setEvent = (node, event) => {
   const [name, func] = event
-  node.addEventListener(name, func)
+  node.addEventListener(name, (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    func()
+  })
 }
 
 export const setStyles = (node, styles) => {
