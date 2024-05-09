@@ -59,8 +59,9 @@ export const createNode = (nodeData) => {
   // set events
   nodeData.events.forEach(event => setEvent(newNode, event))
   // set styles
-  setStyles(newNode, nodeData.styles)
+  // todo conflict setStyles with display and isShown display
   newNode.style.display = nodeData.isShown ? '' : 'none'
+  setStyles(newNode, nodeData.styles)
   // set classes
   nodeData.classes.forEach((className) => {
     newNode.classList.add(className)
