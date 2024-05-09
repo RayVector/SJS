@@ -1,5 +1,7 @@
 import { prepareShadowDom } from './shadow-dom'
 import {errorMessage} from "../utils/messages";
+import {node} from "../SJS";
+import {onHover, onUnHover} from "../enum/actions";
 
 export const setNodeContent = (newNode, contentNode) => newNode.innerText = contentNode
 
@@ -12,9 +14,32 @@ export const setEvent = (node, event) => {
   })
 }
 
+const kebabize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
+
 export const setStyles = (node, styles) => {
   for (const stylesKey in styles) {
-    node.style[stylesKey] = styles[stylesKey]
+    if (stylesKey[0] === '$') {
+      // css hover
+      if (stylesKey === '$hover') {
+        const newStyles = styles[stylesKey]()
+        node.addEventListener(onHover, (e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          for (const newStylesKey in newStyles) {
+            node.style[newStylesKey] = newStyles[newStylesKey]
+          }
+          node.addEventListener(onUnHover, () => {
+            for (const newStylesKey in newStyles) {
+              const styleName = kebabize(newStylesKey)
+              node.style.removeProperty(styleName)
+              node.style[newStylesKey] = styles[newStylesKey]
+            }
+          })
+        })
+      }
+    } else {
+      node.style[stylesKey] = styles[stylesKey]
+    }
   }
 }
 
@@ -72,4 +97,12 @@ export const createState = (state) => {
     rerender(state, component)
   }
   return {state, setState}
+}
+
+export const createContainer = (nodes, classes = []) => {
+  return node({
+    el: 'div',
+    classes,
+    render: () => [...nodes]
+  })
 }

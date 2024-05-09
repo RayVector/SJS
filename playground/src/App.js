@@ -8,6 +8,7 @@ import TodoItem from './components/TodoItem'
 import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
+import {createContainer} from "../../src/engine/engine";
 
 const App = () => {
   // state
@@ -55,16 +56,6 @@ const App = () => {
     setState({color: getRandomColor()}, App)
   }
 
-  // computed
-  const computedCountTodos = () => {
-    return state.count + state.todos.length
-  }
-
-  // lifecycle hook
-  const onMounted = () => {
-    // getAsyncList()
-  }
-
   const getAsyncList = async () => {
     try {
       setState({isAsyncLoading: true}, App)
@@ -78,8 +69,18 @@ const App = () => {
     }
   }
 
-  // view
-  const render = () => [
+  // computed
+  const computedCountTodos = () => {
+    return state.count + state.todos.length
+  }
+
+  // lifecycle hook
+  const onMounted = () => {
+    // getAsyncList()
+  }
+
+  // partials
+  const title = () => (
     node({
       el: 'h1',
       classes: ['qwe'],
@@ -87,21 +88,30 @@ const App = () => {
       styles: {color: state.color, display: 'inline'},
       render: () => ['SJS Hello World!'],
       events: [[onHover, onTitleHover]]
-    }),
-    node({
-      el: 'h1',
-      render: () => ['Conditional render:'],
-    }),
-    node({
-      el: 'button',
-      render: () => ['Full Toggle'],
-      events: [[onClick, fullHideText]]
-    }),
-    node({
-      el: 'button',
-      render: () => ['Semi Toggle (Hide)'],
-      events: [[onClick, partialHideText]]
-    }),
+    })
+  )
+
+  // view
+  const render = () => [
+    createContainer([
+      title(),
+      node({
+        el: 'h1',
+        render: () => ['Conditional render:'],
+      }),
+    ], ['container']),
+    createContainer([
+      node({
+        el: 'button',
+        render: () => ['Full Toggle'],
+        events: [[onClick, fullHideText]]
+      }),
+      node({
+        el: 'button',
+        render: () => ['Semi Toggle (Hide)'],
+        events: [[onClick, partialHideText]]
+      }),
+    ]),
     node({
       el: 'div',
       if: state.isShown,

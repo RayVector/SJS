@@ -6,5 +6,6 @@ export const addBtnStyles = {
   border: 'none',
   marginBottom: '5px',
   borderRadius: '2px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  $hover: () => ({backgroundColor: 'red'})
 }

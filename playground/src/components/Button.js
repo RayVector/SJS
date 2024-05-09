@@ -14,12 +14,7 @@ const Button = (msg, slot) => {
         marginRight: '5px',
         marginTop: '5px'
       },
-      events: [
-        [
-          onClick,
-          () => alert(msg)
-        ]
-      ]
+      events: [[onClick, () => alert(msg)]]
     })
   ]
 
