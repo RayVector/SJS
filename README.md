@@ -14,7 +14,7 @@ Todo:
 - Store
 - Forms
 - Dynamic component
-- Watchers
+- Watchers (done)
 - Computed (done)
 - Slots (done)
 - Html attributes to node (done)
