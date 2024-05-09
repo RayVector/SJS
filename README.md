@@ -19,3 +19,4 @@ Todo:
 - Slots (done)
 - Html attributes to node (done)
 - UI kit configuration
+- More events
