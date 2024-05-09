@@ -17,3 +17,5 @@ Todo:
 - Watchers
 - Computed (done)
 - Slots (done)
+- Html attributes to node (done)
+- UI kit configuration
