@@ -9,8 +9,10 @@ import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
 import {createBtn, createContainer} from "../../src/engine/engine";
+import Form from "./components/Form";
 
 const App = () => {
+  const name = 'App'
   // state
   const {state, setState, watchField, removeWatcher} = createState({
     count: 0,
@@ -182,12 +184,14 @@ const App = () => {
       el: 'h1',
       styles: {fontSize: '26px'},
       render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
-    })
+    }),
+    Form()
   ]
 
   return {
     state,
     render,
+    name,
     onMounted
   }
 }

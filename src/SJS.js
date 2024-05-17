@@ -1,4 +1,4 @@
-import {prepareShadowDom} from "./engine/shadow-dom";
+import {prepareShadowDom, prepareShadowNode} from "./engine/shadow-dom";
 
 export let appId
 
@@ -26,5 +26,5 @@ export const createApp = (id, component) => {
     ...component()
   })
   newRootComponent.onMounted()
-  prepareShadowDom(newRootComponent)
+  prepareShadowDom(prepareShadowNode(newRootComponent))
 }

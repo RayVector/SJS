@@ -1,7 +1,8 @@
-import {prepareShadowDom} from './shadow-dom'
+import {renderComponent} from './shadow-dom'
 import {errorMessage} from "../utils/messages";
 import {node} from "../SJS";
 import {onClick, onHover, onUnHover} from "../enum/actions";
+import {getComponentDomId} from "../utils/node-id";
 
 export const setNodeContent = (newNode, contentNode) => newNode.innerText = contentNode
 
@@ -44,18 +45,16 @@ export const setStyles = (node, styles) => {
 }
 
 
-export const rerender = (state, component) => {
-  // init component
-  const newComponent = component()
-  // populate new state
-  Object.assign(newComponent.state, state)
-  // to mount
-  prepareShadowDom(newComponent)
+export const rerender = (component) => {
+  renderComponent(component)
 }
 
 export const createNode = (nodeData) => {
   // create node
   const newNode = document.createElement(nodeData.el)
+  if (nodeData.name !== undefined) {
+    newNode.id = getComponentDomId(nodeData.name)
+  }
   // set events
   nodeData.events.forEach(event => setEvent(newNode, event))
   // set styles
@@ -95,14 +94,17 @@ export const createState = (state) => {
       return
     }
 
+    const expandComponent = component()
+
     for (const objectValueKey in objectValue) {
       // watcher
       if (watcherReflectMap[objectValueKey] !== undefined) {
         watcherReflectMap[objectValueKey](objectValue[objectValueKey])
       }
-      state[objectValueKey] = objectValue[objectValueKey]
+      expandComponent.state[objectValueKey] = objectValue[objectValueKey]
     }
-    rerender(state, component)
+
+    rerender(expandComponent)
   }
 
   // save watcher

@@ -1,5 +1,6 @@
 import {appId, node} from '../SJS'
 import {createNode} from "./engine";
+import {getComponentDomId} from "../utils/node-id";
 
 export const prepareShadowNode = (rootComponent) => {
   const content = rootComponent.render()
@@ -18,29 +19,36 @@ export const prepareShadowNode = (rootComponent) => {
   return rootComponent
 }
 
-export const renderShadowDom = (shadowDom) => {
-  const root = document.getElementById(appId)
-  const newRoot = document.createElement('div')
-  const body = document.getElementsByTagName('body')[0]
-  newRoot.id = appId
-
+const generateNodeDom = (shadowDom, id) => {
+  const newRoot = document.createElement(shadowDom.el || 'div')
+  newRoot.id = id
   // content
   shadowDom.content.forEach(contentItem => {
     // node
     if (typeof contentItem === 'object') {
       if (contentItem.if) newRoot.appendChild(createNode(contentItem))
-    // content
+      // content
     } else {
       newRoot.innerHTML += contentItem
     }
   })
+  return newRoot
+}
 
-  // todo
-  root.remove()
-  body.appendChild(newRoot)
+export const renderShadowDom = (shadowDom, id) => {
+  const newRoot = generateNodeDom(shadowDom, id)
+  const root = document.getElementById(id)
+  root.replaceWith(newRoot)
+}
+
+export const renderComponent = (component) => {
+  const shadowDom = prepareShadowNode(component)
+  const id = getComponentDomId(shadowDom.name)
+  renderShadowDom(shadowDom, id)
 }
 
 export const prepareShadowDom = (rootComponent) => {
   const shadowDom = prepareShadowNode(rootComponent)
-  renderShadowDom(shadowDom)
+  const id = getComponentDomId(shadowDom.name)
+  renderShadowDom(shadowDom, id)
 }
