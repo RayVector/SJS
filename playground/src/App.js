@@ -69,9 +69,9 @@ const App = () => {
       setState({isAsyncLoading: true}, App)
       setTimeout(async () => {
         const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
-        state.todos = res.data.slice(0, 10)
+        setState({todos: res.data.slice(0, 10)}, App)
         setState({isAsyncLoading: false}, App)
-      }, 2000)
+      }, 10)
     } catch (e) {
       console.error(e)
     }

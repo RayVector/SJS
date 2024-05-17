@@ -1,4 +1,4 @@
-import {renderComponent} from './shadow-dom'
+import {prepareShadowDom, renderComponent} from './shadow-dom'
 import {errorMessage} from "../utils/messages";
 import {node} from "../SJS";
 import {onClick, onHover, onUnHover} from "../enum/actions";
@@ -45,8 +45,13 @@ export const setStyles = (node, styles) => {
 }
 
 
-export const rerender = (component) => {
-  renderComponent(component)
+export const rerender = (state, component) => {
+  // init component
+  const newComponent = component()
+  // populate new state
+  Object.assign(newComponent.state, state)
+  // to mount
+  renderComponent(newComponent)
 }
 
 export const createNode = (nodeData) => {
@@ -94,17 +99,14 @@ export const createState = (state) => {
       return
     }
 
-    const expandComponent = component()
-
     for (const objectValueKey in objectValue) {
       // watcher
       if (watcherReflectMap[objectValueKey] !== undefined) {
         watcherReflectMap[objectValueKey](objectValue[objectValueKey])
       }
-      expandComponent.state[objectValueKey] = objectValue[objectValueKey]
+      state[objectValueKey] = objectValue[objectValueKey]
     }
-
-    rerender(expandComponent)
+    rerender(state, component)
   }
 
   // save watcher
