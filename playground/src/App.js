@@ -71,7 +71,7 @@ const App = () => {
         const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
         setState({todos: res.data.slice(0, 10)}, App)
         setState({isAsyncLoading: false}, App)
-      }, 10)
+      }, 2000)
     } catch (e) {
       console.error(e)
     }
