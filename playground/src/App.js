@@ -25,10 +25,10 @@ const App = () => {
   })
 
   // watchers
-  watchField('isShown', (v) => console.log('isShown: ', v))
-  watchField('buttonMsg', (v) => console.log('buttonMsg: ', v))
-  watchField('isShown2', (v) => console.log('isShown2: ', v))
-  removeWatcher('isShown2')
+  // watchField('isShown', (v) => console.log('isShown: ', v))
+  // watchField('buttonMsg', (v) => console.log('buttonMsg: ', v))
+  // watchField('isShown2', (v) => console.log('isShown2: ', v))
+  // removeWatcher('isShown2')
 
   // methods
   const fullHideText = () => {

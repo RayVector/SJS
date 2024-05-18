@@ -1,5 +1,5 @@
 import {createState, node} from "../../../src";
-import {onChange} from "../../../src/enum/actions";
+import {onInput, onChange} from "../../../src/enum/actions";
 import {createContainer} from "../../../src/engine/engine";
 
 const Form = () => {
@@ -8,6 +8,10 @@ const Form = () => {
   const {state, setState} = createState({
     name: ''
   })
+
+  const onUpdateInput = (e) => {
+    setState({name: state.name + e.target.value}, Form)
+  }
 
   const render = () => {
     return [
@@ -32,8 +36,8 @@ const Form = () => {
                   el: 'input',
                   styles: {marginLeft: '10px'},
                   events: [
-                    // [onInput, (e) => console.log('onInput: ', e.target.value)],
-                    [onChange, (e) => setState({name: e.target.value}, Form)]
+                    // [onInput, onUpdateInput],
+                    [onChange, onUpdateInput]
                   ]
                 })
               ]
