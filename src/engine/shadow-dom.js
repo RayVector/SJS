@@ -1,4 +1,4 @@
-import {appId, node} from '../SJS'
+import {node} from '../SJS'
 import {createNode} from "./engine";
 import {getComponentDomId} from "../utils/node-id";
 
