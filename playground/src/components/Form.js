@@ -18,15 +18,7 @@ const Form = () => {
       node({
         el: 'form',
         render: () => [
-          // createContainer([state.name || 'No data']),
-          node({
-            name: 'test',
-            el: 'div',
-            render: () => {
-              // console.log(1, state)
-              return [state.name || 'No data']
-            }
-          }),
+          createContainer([state.name || 'No data']),
           createContainer([
             node({
               el: 'label',
