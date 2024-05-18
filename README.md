@@ -24,5 +24,6 @@ Todo:
 
 Problems:
 
-- Multiple components with state are not allowed, because I use component id-name for rerender
-- Instant rerender (for example onInput in input) are not allowed, because I use replaceWith to replace new node
+- Major: Multiple components with state are not allowed, because I use component id-name for rerender
+- Major: Instant rerender (for example onInput in input) are not allowed, because I use replaceWith to replace new node
+- Major: Component with state will rerender with default state on rerender parent component
