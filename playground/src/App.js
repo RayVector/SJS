@@ -8,11 +8,11 @@ import TodoItem from './components/TodoItem'
 import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
-import {createBtn, createContainer} from "../../src/engine/engine";
+import {createBtn, createContainer} from "../../src/interfaces/interfaces";
 import Form from "./components/Form";
+import {importComponent} from "../../src/interfaces/interfaces";
 
 const App = () => {
-  const name = 'App'
   // state
   const {state, setState, watchField, removeWatcher} = createState({
     count: 0,
@@ -22,7 +22,7 @@ const App = () => {
     isShown: false,
     isShown2: false,
     color: ''
-  })
+  }, App)
 
   // watchers
   watchField('isShown', (v) => console.log('isShown: ', v))
@@ -32,24 +32,24 @@ const App = () => {
 
   // methods
   const fullHideText = () => {
-    setState({isShown: !state.isShown}, App)
+    setState({isShown: !state.isShown})
     // possible way: rerender(state, App)
   }
 
   const partialHideText = () => {
-    setState({isShown2: !state.isShown2}, App)
+    setState({isShown2: !state.isShown2})
   }
 
   const rise = () => {
-    setState({count: state.count + 1}, App)
+    setState({count: state.count + 1})
   }
 
   const updateButtonText = () => {
-    setState({buttonMsg: 'qweasdzxc'}, App)
+    setState({buttonMsg: 'qweasdzxc'})
   }
 
   const undoButtonText = () => {
-    setState({buttonMsg: 'qwe'}, App)
+    setState({buttonMsg: 'qwe'})
   }
 
   const onTitleHover = () => {
@@ -61,16 +61,16 @@ const App = () => {
       }
       return color;
     }
-    setState({color: getRandomColor()}, App)
+    setState({color: getRandomColor()})
   }
 
   const getAsyncList = async () => {
     try {
-      setState({isAsyncLoading: true}, App)
+      setState({isAsyncLoading: true})
       setTimeout(async () => {
         const res = await axios.get('https://jsonplaceholder.typicode.com/todos')
-        setState({todos: res.data.slice(0, 10)}, App)
-        setState({isAsyncLoading: false}, App)
+        setState({todos: res.data.slice(0, 10)})
+        setState({isAsyncLoading: false})
       }, 2000)
     } catch (e) {
       console.error(e)
@@ -185,13 +185,12 @@ const App = () => {
       styles: {fontSize: '26px'},
       render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
     }),
-    Form()
+    importComponent(Form)
   ]
 
   return {
     state,
     render,
-    name,
     onMounted
   }
 }

@@ -1,9 +1,7 @@
 import {createState, node} from "../../../src";
-import {createBtn} from "../../../src/engine/engine";
+import {createBtn} from "../../../src/interfaces/interfaces";
 
 const Component = () => {
-  const name = 'Component'
-
   const {state, setState} = createState({
     name: 'qwe'
   })
@@ -18,7 +16,7 @@ const Component = () => {
       }),
     ]
   }
-  return {name, state, render}
+  return {state, render}
 }
 
 export default Component

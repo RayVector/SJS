@@ -50,9 +50,3 @@ export const renderComponent = (component) => {
   const id = getComponentDomId(shadowDom.name)
   renderShadowDom(shadowDom, id)
 }
-
-export const prepareShadowDom = (rootComponent) => {
-  const shadowDom = prepareShadowNode(rootComponent)
-  const id = getComponentDomId(shadowDom.name)
-  renderShadowDom(shadowDom, id)
-}

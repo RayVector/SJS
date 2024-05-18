@@ -1,6 +1,4 @@
-import {prepareShadowDom, prepareShadowNode} from "./engine/shadow-dom";
-
-export let appId
+import {renderComponent, prepareShadowNode} from "./engine/shadow-dom";
 
 // node settings
 export const node = (node) => {
@@ -19,12 +17,12 @@ export const node = (node) => {
 }
 
 // main
-export const createApp = (id, component) => {
-  appId = id
+export const createApp = (component) => {
   // shadow dom
   const newRootComponent = node({
     ...component()
   })
+  newRootComponent.name = component.prototype.constructor.name
   newRootComponent.onMounted()
-  prepareShadowDom(prepareShadowNode(newRootComponent))
+  renderComponent(prepareShadowNode(newRootComponent))
 }

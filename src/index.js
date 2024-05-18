@@ -9,7 +9,7 @@ export {
 export {
   prepareShadowNode,
   renderShadowDom,
-  prepareShadowDom
+  renderComponent
 } from './engine/shadow-dom'
 
 export {

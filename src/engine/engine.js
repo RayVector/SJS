@@ -1,4 +1,4 @@
-import {prepareShadowDom, renderComponent} from './shadow-dom'
+import {renderComponent} from './shadow-dom'
 import {errorMessage} from "../utils/messages";
 import {node} from "../SJS";
 import {onClick, onHover, onUnHover} from "../enum/actions";
@@ -48,6 +48,7 @@ export const setStyles = (node, styles) => {
 export const rerender = (state, component) => {
   // init component
   const newComponent = component()
+  newComponent.name = component.prototype.constructor.name
   // populate new state
   Object.assign(newComponent.state, state)
   // to mount
@@ -88,12 +89,12 @@ export const createNode = (nodeData) => {
   return newNode
 }
 
-export const createState = (state) => {
+export const createState = (state, component) => {
   // watcher
   const watcherReflectMap = {}
 
   // update
-  const setState = (objectValue, component) => {
+  const setState = (objectValue) => {
     if (component === undefined || component === null) {
       errorMessage('setState should get a component for rerender!')
       return
@@ -117,23 +118,4 @@ export const createState = (state) => {
     delete watcherReflectMap[field]
   }
   return {state, setState, watchField, removeWatcher}
-}
-
-export const createContainer = (nodes, classes = [], styles = {}) => {
-  return node({
-    el: 'div',
-    classes,
-    styles,
-    render: () => [...nodes]
-  })
-}
-
-export const createBtn = (content, clickEventHandler, classes = [], styles = {}) => {
-  return node({
-    el: 'button',
-    classes,
-    styles,
-    render: () => [content],
-    events: [[onClick, clickEventHandler]]
-  })
 }

@@ -1,16 +1,15 @@
 import {createState, node} from "../../../src";
 import {onInput, onChange} from "../../../src/enum/actions";
-import {createContainer} from "../../../src/engine/engine";
+import {createContainer} from "../../../src/interfaces/interfaces";
 
 const Form = () => {
-  const name = 'Form'
 
   const {state, setState} = createState({
     name: ''
-  })
+  }, Form)
 
   const onUpdateInput = (e) => {
-    setState({name: state.name + e.target.value}, Form)
+    setState({name: state.name + e.target.value})
   }
 
   const render = () => {
@@ -39,7 +38,7 @@ const Form = () => {
       })
     ]
   }
-  return {name, state, render}
+  return {state, render}
 }
 
 export default Form
