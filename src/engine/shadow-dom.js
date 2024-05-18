@@ -35,10 +35,14 @@ const generateNodeDom = (shadowDom, id) => {
   return newRoot
 }
 
+const replaceNodes = (root, newRoot) => {
+  root.replaceWith(newRoot)
+}
+
 export const renderShadowDom = (shadowDom, id) => {
   const newRoot = generateNodeDom(shadowDom, id)
   const root = document.getElementById(id)
-  root.replaceWith(newRoot)
+  replaceNodes(root, newRoot)
 }
 
 export const renderComponent = (component) => {
