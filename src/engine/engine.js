@@ -90,11 +90,16 @@ export const createNode = (nodeData) => {
   return newNode
 }
 
-export const createState = (state) => {
+export const createState = (state, component) => {
   // watcher
   const watcherReflectMap = {}
   // update
   const setState = (objectValue) => {
+    if (component === undefined || component === null) {
+      errorMessage('setState should get a component for rerender!')
+      return
+    }
+
     for (const objectValueKey in objectValue) {
       // watcher
       if (watcherReflectMap[objectValueKey] !== undefined) {
@@ -102,6 +107,7 @@ export const createState = (state) => {
       }
       state[objectValueKey] = objectValue[objectValueKey]
     }
+    rerender(state, component)
   }
 
   // save watcher
