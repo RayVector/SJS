@@ -8,9 +8,9 @@ import TodoItem from './components/TodoItem'
 import {onClick, onHover} from "../../src/enum/actions";
 
 import './app.css'
-import {createBtn, createContainer} from "../../src/interfaces/interfaces";
+import {createBtn, createContainer, importComponent} from "../../src/interfaces/interfaces";
 import Form from "./components/Form";
-import {importComponent} from "../../src/interfaces/interfaces";
+import Test from "./components/Test";
 
 const App = () => {
   // state
@@ -185,7 +185,9 @@ const App = () => {
       styles: {fontSize: '26px'},
       render: () => [`Computed (counter + async list length): ${computedCountTodos()}`]
     }),
-    importComponent(Form)
+    Form(),
+    importComponent(Test),
+    importComponent(Test),
   ]
 
   return {

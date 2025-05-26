@@ -55,11 +55,12 @@ export const rerender = (state, component) => {
   renderComponent(newComponent)
 }
 
+// creates html node
 export const createNode = (nodeData) => {
   // create node
   const newNode = document.createElement(nodeData.el)
   if (nodeData.name !== undefined) {
-    newNode.id = getComponentDomId(nodeData.name)
+    newNode.id = getComponentDomId(nodeData.name, nodeData.key)
   }
   // set events
   nodeData.events.forEach(event => setEvent(newNode, event))
@@ -89,17 +90,11 @@ export const createNode = (nodeData) => {
   return newNode
 }
 
-export const createState = (state, component) => {
+export const createState = (state) => {
   // watcher
   const watcherReflectMap = {}
-
   // update
   const setState = (objectValue) => {
-    if (component === undefined || component === null) {
-      errorMessage('setState should get a component for rerender!')
-      return
-    }
-
     for (const objectValueKey in objectValue) {
       // watcher
       if (watcherReflectMap[objectValueKey] !== undefined) {
@@ -107,7 +102,6 @@ export const createState = (state, component) => {
       }
       state[objectValueKey] = objectValue[objectValueKey]
     }
-    rerender(state, component)
   }
 
   // save watcher

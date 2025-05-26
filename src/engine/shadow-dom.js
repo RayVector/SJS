@@ -1,8 +1,10 @@
 import {node} from '../SJS'
 import {createNode} from "./engine";
 import {getComponentDomId} from "../utils/node-id";
+import {errorMessage} from "../utils/messages";
 
-export const prepareShadowNode = (rootComponent) => {
+// creates content from render
+export const prepareShadowNode = (rootComponent, index) => {
   const content = rootComponent.render()
   content.forEach(child => {
     // component type
@@ -12,13 +14,15 @@ export const prepareShadowNode = (rootComponent) => {
         Object.assign(child, node(child))
       }
       // node type
-      prepareShadowNode(child)
+      prepareShadowNode(child, index)
     }
   })
   rootComponent.content = content
+  rootComponent.key = index
   return rootComponent
 }
 
+// creates html
 const generateNodeDom = (shadowDom, id) => {
   const newRoot = document.createElement(shadowDom.el || 'div')
   newRoot.id = id
@@ -27,7 +31,6 @@ const generateNodeDom = (shadowDom, id) => {
     // node
     if (typeof contentItem === 'object') {
       if (contentItem.if) newRoot.appendChild(createNode(contentItem))
-      // content
     } else {
       newRoot.innerHTML += contentItem
     }
@@ -35,6 +38,7 @@ const generateNodeDom = (shadowDom, id) => {
   return newRoot
 }
 
+// replace
 const replaceNodes = (root, newRoot) => {
   root.replaceWith(newRoot)
 }
