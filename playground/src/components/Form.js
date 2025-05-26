@@ -1,15 +1,23 @@
 import {createState, node} from "../../../src";
-import {onInput, onChange} from "../../../src/enum/actions";
+import {onChange, onClick} from "../../../src/enum/actions";
 import {createContainer} from "../../../src/interfaces/interfaces";
 
 const Form = () => {
 
   const {state, setState} = createState({
-    name: ''
+    name: '',
+    phone: ''
   }, Form)
 
-  const onUpdateInput = (e) => {
-    setState({name: state.name + e.target.value})
+  const onUpdateInputName = (e) => {
+    setState({name: e.target.value})
+  }
+  const onUpdateInputPhone = (e) => {
+    setState({phone: e.target.value})
+  }
+
+  const onSubmit = () => {
+    console.log('submit', state)
   }
 
   const render = () => {
@@ -17,7 +25,6 @@ const Form = () => {
       node({
         el: 'form',
         render: () => [
-          createContainer([state.name || 'No data']),
           createContainer([
             node({
               el: 'label',
@@ -25,12 +32,40 @@ const Form = () => {
                 'Name',
                 node({
                   el: 'input',
-                  styles: {marginLeft: '10px'},
+                  styles: {margin: '10px'},
+                  attrs: [{value: state.name}],
                   events: [
-                    // [onInput, onUpdateInput],
-                    [onChange, onUpdateInput]
+                    [onChange, onUpdateInputName]
                   ]
                 })
+              ]
+            })
+          ]),
+          createContainer([
+            node({
+              el: 'label',
+              render: () => [
+                'Phone',
+                node({
+                  el: 'input',
+                  styles: {margin: '10px'},
+                  attrs: [{value: state.phone}],
+                  events: [
+                    [onChange, onUpdateInputPhone]
+                  ]
+                })
+              ]
+            })
+          ]),
+          createContainer([
+            node({
+              el: 'button',
+              attrs: [{type: 'button'}],
+              events: [
+                [onClick, onSubmit]
+              ],
+              render: () => [
+                'Submit',
               ]
             })
           ])
